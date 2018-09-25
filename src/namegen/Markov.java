@@ -127,7 +127,7 @@ public class Markov {
 	        	}
 	        	}
 	    }
-	    //System.out.println(sequence);
+	    //System.out.println(sequence); 
 		
 	    //great! now that we have the first element, time for some generic iterations.
 	    //in a very similar manner. Basically - perform this loop till you encounter "]" at the end
