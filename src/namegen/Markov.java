@@ -20,7 +20,7 @@ public class Markov {
 	this.rng = rng;
 
 	//applyDictionary("1000mostCommonEnglishWords.txt", 1);
-	applyDictionary("male_names_1991.txt", 3);
+	applyDictionary("male_names_1991.txt", 2);
 	System.out.println(generateWord());
 	}
 	
@@ -78,7 +78,7 @@ public class Markov {
 	        	
 	        	if (k.substring(1,2).equals("["))
 	        		{
-	        		allEntries++;
+	        		allEntries+=occurrences.get(k,"_TOTAL_");
 	        		}
 	        	}
 			}
