@@ -1,15 +1,13 @@
 package namegen;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 public class Markov {
@@ -21,7 +19,8 @@ public class Markov {
 	public Markov(Random rng) {
 	this.rng = rng;
 
-	applyDictionary("1000mostCommonEnglishWords.txt", 3);
+	//applyDictionary("1000mostCommonEnglishWords.txt", 1);
+	applyDictionary("male_names_1991.txt", 3);
 	System.out.println(generateWord());
 	}
 	
@@ -63,10 +62,10 @@ public class Markov {
 		int allEntries=0;
 		
 		//first iteration: we count top level entries. There's just no other way.
-		Iterator i = occurrences.mMap.entrySet().iterator();
+		Iterator<Entry<String, Map<String, Integer>>> i = occurrences.mMap.entrySet().iterator();
 		
 		while (i.hasNext()) {
-			HashMap.Entry pair = (HashMap.Entry)i.next();
+			Map.Entry<String, Map<String, Integer>> pair = (Entry<String, Map<String, Integer>>) i.next();
 	        
 	        String k=(String) pair.getKey();
 	        
@@ -94,12 +93,12 @@ public class Markov {
 		//from which we will go further. Just remember to
 		//remove the underscores at both ends!
 		
-		Iterator it = occurrences.mMap.entrySet().iterator();
+		Iterator<Entry<String, Map<String, Integer>>> it = occurrences.mMap.entrySet().iterator();
 		
 		String sequence="";
 		
 	    while (it.hasNext()) {
-	        HashMap.Entry pair = (HashMap.Entry)it.next();
+	        Map.Entry<String, Map<String, Integer>> pair = (Entry<String, Map<String, Integer>>)it.next();
 	        
 	        String k=(String) pair.getKey();
 	        
@@ -134,8 +133,6 @@ public class Markov {
 	    
 	    word = sequence; //now we're gonna use firstElement to keep the sequence
 	    
-	    int cursorPos=0;
-	    
 	    while (!sequence.substring(sequence.length()-1).equals("]"))
 	    	{
 	    	//sequence is now your HashMap key for the 1st dimension.
@@ -144,24 +141,30 @@ public class Markov {
 	    	//   and count their total occurrences
 	    	int subSize = 0;
 	    	
-	    	Iterator j = occurrences.mMap.get(sequence).entrySet().iterator();
+	    	int test=occurrences.mMap.get(sequence).size();
+	    	
+	    	System.out.println(test);
+	    	System.out.println(sequence);
+	    	
+	    	Iterator<?> j = occurrences.mMap.get(sequence).entrySet().iterator();
 	    	
 	    	while (j.hasNext())
 	    		{
-	    		HashMap.Entry entry = (HashMap.Entry)j.next();
-	    		subSize+=occurrences.get(sequence, (String)entry.getKey());
+	    		@SuppressWarnings("unchecked")
+				Map.Entry<String, Integer> entry = (Entry<String, Integer>)j.next();
+	    		subSize+=entry.getValue();
 	    		}
 	    	
 	    	//and now, the last iterator, with a random, just like before
 	    	randomNumber=rng.nextInt(subSize);
 	    	
-	    	Iterator k = occurrences.mMap.get(sequence).entrySet().iterator();
+	    	Iterator<Entry<String, Integer>> k = occurrences.mMap.get(sequence).entrySet().iterator();
 	    	
 	    	String chosen="";
 	    	
 	    	while (k.hasNext())
 	    		{
-	    		HashMap.Entry entry = (HashMap.Entry)k.next();
+	    		HashMap.Entry<String, Integer> entry = (Entry<String, Integer>)k.next();
 	    		int occu = occurrences.get(sequence,  (String)entry.getKey());
 	    		
 	    		if (randomNumber<occu)
@@ -181,7 +184,9 @@ public class Markov {
     		//and also append it with chosen character.
     		//So if the Sequence is ABC, and chosen is D,
     		//it now becomes BCD.
-    		sequence = sequence.substring(1, sequence.length()-1)+chosen;
+    		sequence = sequence.substring(1, sequence.length())+chosen;
+    		//System.out.println("FINAL: "+sequence);
+    		//System.out.println("CHOSEN: "+chosen);
     		
 	    	}
 	    
@@ -208,7 +213,7 @@ public class Markov {
 	
 	if (input!="")
 	{
-	input.toLowerCase(); //XXXXXXXX
+	input = input.toLowerCase(); //XXXXXXXX
 	
 	//turn all newline/whitespace characters into inter-word separators
 	input = input.replaceAll("[\\t\\n\\r\\s]+","][");
@@ -228,7 +233,6 @@ public class Markov {
 	
 	//System.out.print(input);
 	
-	int cursor=0;
 	int maxCursorPos = input.length()-1-sequenceLen;
 	
 	for (int i=0; i<=maxCursorPos; i++)

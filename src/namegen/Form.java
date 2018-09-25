@@ -6,6 +6,11 @@ import java.awt.event.*;
 
 class Form extends JFrame {
 
+  /**
+	 * 
+	 */
+  private static final long serialVersionUID = 4828844368057679043L;
+  
   private JButton btnTutup  = new JButton("Tutup");
   private JButton btnTambah = new JButton("Tambah");
 
