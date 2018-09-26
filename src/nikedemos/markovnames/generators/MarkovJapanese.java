@@ -54,6 +54,6 @@ public class MarkovJapanese extends MarkovGenerator {
 			given = markov2.generateWord();
 			}
 		
-		return surname+" "+given;
+		return new StringBuilder(surname).append(" ").append(given).toString();
 	}
 }

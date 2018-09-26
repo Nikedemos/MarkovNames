@@ -39,10 +39,8 @@ public class MarkovRoman extends MarkovGenerator {
 		if (lastTwoChars.equals("us"))
 		{
 		lastTwoChars="a";
-
-		//delete last two chars from the element
-		
-		element = element.substring(0, element.length()-2)+lastTwoChars;
+		//delete last two chars from the element and append with "a"
+		element = new StringBuilder(element.substring(0, element.length()-2)).append(lastTwoChars).toString();
 		}
 		else
 		{
@@ -50,7 +48,7 @@ public class MarkovRoman extends MarkovGenerator {
 			{
 			lastChar="a";
 			
-			element = element.substring(0, element.length()-1)+lastChar;
+			element = new StringBuilder(element.substring(0, element.length()-1)).append(lastChar).toString();
 			}
 		}
 		

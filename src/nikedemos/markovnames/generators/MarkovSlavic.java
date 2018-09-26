@@ -32,11 +32,11 @@ public class MarkovSlavic extends MarkovGenerator {
 		
 		if (lastChar.equals("o"))
 		{
-			element = element.substring(0, element.length()-1)+"a";
+			element = new StringBuilder(element.substring(0, element.length()-1)).append("a").toString();
 		}
 		else if (!lastChar.equals("a"))
 		{
-		element=element+"a";
+		element=new StringBuilder(element).append("a").toString();
 		}
 		
 		return element;
