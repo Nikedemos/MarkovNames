@@ -1,4 +1,4 @@
-Acalan
+﻿Acalan
 Acatl
 Acue
 Ahuatzi
@@ -53,11 +53,11 @@ Itzpapalotl
 Itztli
 Ixcuiname
 Ixtli	
-Macuilxóchitl
+Macuilxochitl
 Matlalihuitl
 Metztli
 Mictlantecuhtli
-Mixcóatl
+Mixcoatl
 Miyaoaxochitl
 Mizquixaual
 Montezuma

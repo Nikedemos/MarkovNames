@@ -38,7 +38,12 @@ public class MarkovDictionary {
 	}
 	
 	public String getCapitalized(String str) {
-		return str.substring(0, 1).toUpperCase() + str.substring(1);		
+		StringBuilder build = new StringBuilder(str);
+		String capital = build.substring(0,1).toUpperCase();
+		
+		build = build.replace(0, 1, capital);
+		
+		return build.toString();		
 	}
 	
 	public static String readFile(String path) 
@@ -63,7 +68,7 @@ public class MarkovDictionary {
 	
 	public String generateWord()
 	{
-		String word="";
+
 		
 		//let's pick the first element, from which further picking shall proceed.
 		//first, we need to know how many top-level sequences (sequenceLen length) strings
@@ -86,7 +91,7 @@ public class MarkovDictionary {
 		        //System.out.println(k+" YES!");
 		        //System.out.println(pair.getKey() + " = " + pair.getValue());
 	        	
-		        //great! now we're looking for "[" only
+		        //great! now we're looking for "["
 	        	
 	        	if (k.substring(1,2).equals("["))
 	        		{
@@ -107,7 +112,7 @@ public class MarkovDictionary {
 		
 		Iterator<Entry<String, Map<String, Integer>>> it = occurrences.mMap.entrySet().iterator();
 		
-		String sequence="";
+		StringBuilder sequence=new StringBuilder("");
 		
 	    while (it.hasNext()) {
 	        Map.Entry<String, Map<String, Integer>> pair = (Entry<String, Map<String, Integer>>)it.next();
@@ -127,7 +132,7 @@ public class MarkovDictionary {
 	        	
 	        	if (randomNumber<topLevelEntries)
 	        		{
-	        		sequence=k.substring(1, sequenceLen+1); //removing the underscores
+	        		sequence = sequence.append(k.substring(1, sequenceLen+1)); //removing the underscores
 	        		break;
 	        		}
 	        	else
@@ -142,8 +147,9 @@ public class MarkovDictionary {
 		
 	    //great! now that we have the first element, time for some generic iterations.
 	    //in a very similar manner. Basically - perform this loop till you encounter "]" at the end
-	    
-	    word = sequence; //now we're gonna use firstElement to keep the sequence
+		StringBuilder word=new StringBuilder("");
+		
+	    word = word.append(sequence); //now we're gonna use firstElement to keep the sequence
 	    
 	    while (!sequence.substring(sequence.length()-1).equals("]"))
 	    	{
@@ -155,7 +161,7 @@ public class MarkovDictionary {
 	    	
 	    	//System.out.println(sequence);
 	    	
-	    	Iterator<?> j = occurrences.mMap.get(sequence).entrySet().iterator();
+	    	Iterator<?> j = occurrences.mMap.get(sequence.toString()).entrySet().iterator();
 	    	
 	    	while (j.hasNext())
 	    		{
@@ -167,14 +173,14 @@ public class MarkovDictionary {
 	    	//and now, the last iterator, with a random, just like before
 	    	randomNumber=rng.nextInt(subSize);
 	    	
-	    	Iterator<Entry<String, Integer>> k = occurrences.mMap.get(sequence).entrySet().iterator();
+	    	Iterator<Entry<String, Integer>> k = occurrences.mMap.get(sequence.toString()).entrySet().iterator();
 	    	
 	    	String chosen="";
 	    	
 	    	while (k.hasNext())
 	    		{
 	    		HashMap.Entry<String, Integer> entry = (Entry<String, Integer>)k.next();
-	    		int occu = occurrences.get(sequence,  (String)entry.getKey());
+	    		int occu = occurrences.get(sequence.toString(),  (String)entry.getKey());
 	    		
 	    		if (randomNumber<occu)
 	    			{
@@ -187,28 +193,32 @@ public class MarkovDictionary {
 	    			}
 	    		}
     		//now, append the word...
-    		word = word + chosen;
+    		word = word.append(chosen);
     		
     		//delete the first character of the sequence,
     		//and also append it with chosen character.
     		//So if the Sequence is ABC, and chosen is D,
     		//it now becomes BCD.
-    		sequence = sequence.substring(1, sequence.length())+chosen;
+    		sequence = sequence.delete(0, 1);
+    		sequence = sequence.append(chosen);
     		//System.out.println("FINAL: "+sequence);
     		//System.out.println("CHOSEN: "+chosen);
     		
 	    	}
 	    //and now remove the square brackets surrounding it.
-	    word = word.substring(1, word.length()-1);
-		return getCapitalized(word);
+	    word = word.delete(0, 1); //delete first char
+	    word = word.delete(word.length()-1,word.length()); //delete last char
+		return getCapitalized(word.toString());
 	}
 	
 	public void applyDictionary(String dictionaryFile, int seqLen)
 	{
 	String input="";
 	
+	StringBuilder path = new StringBuilder("src/nikedemos/markovnames/dictionary/").append(dictionaryFile);
+	
 	try {
-		input = readFile("src/nikedemos/markovnames/dictionary/"+dictionaryFile);
+		input = readFile(path.toString());
 	} catch (IOException e) {
 		
 		e.printStackTrace();
@@ -236,12 +246,10 @@ public class MarkovDictionary {
 	//input = input.replaceAll(" ", "");
 	
 	//and add "[" at the beginning and "]" at the end
-	input = "["+input;
 	
-	//at the end (as a terminator), add one
-	input = input+"]";
+	StringBuilder input_brackets = new StringBuilder("[").append(input).append("]");
 	
-	//System.out.print(input);
+	input = input_brackets.toString();
 	
 	int maxCursorPos = input.length()-1-sequenceLen;
 	
@@ -251,8 +259,11 @@ public class MarkovDictionary {
 		String seqNext = input.substring(i+sequenceLen,i+sequenceLen+1); //next character after that
 		incrementSafe(seqCurr, seqNext);
 		//aux counters
-		String aux1="_"+seqCurr+"_";
-		incrementSafe(aux1, "_TOTAL_");
+		
+		StringBuilder meta = new StringBuilder("_").append(seqCurr).append("_");
+		
+		//String aux1="_"+seqCurr+"_";
+		incrementSafe(meta.toString(), "_TOTAL_");
 		//String aux2="_"+seqNext+"_";
 		//incrementSafe(aux1, aux2);
 		
