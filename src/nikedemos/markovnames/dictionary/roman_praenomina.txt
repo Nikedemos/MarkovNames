@@ -27,7 +27,7 @@ Tiberius
 Titus
 Agrippa
 Amulius
-Arruns
+Arrunus
 Camillus
 Canus
 Cossus
@@ -39,7 +39,6 @@ Larus
 Marcellus
 Nero
 Nonus
-Opiter
 Oppius
 Paulus
 Postumius
@@ -49,6 +48,5 @@ Proculus
 Silvanus
 Sisenna
 Tullus
-Vel
 Vibius
 Vopiscus

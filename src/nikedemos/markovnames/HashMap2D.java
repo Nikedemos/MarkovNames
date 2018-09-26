@@ -1,4 +1,4 @@
-package namegen;
+package nikedemos.markovnames;
 
 import java.util.HashMap;
 import java.util.Map;

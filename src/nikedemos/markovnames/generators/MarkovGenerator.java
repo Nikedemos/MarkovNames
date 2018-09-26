@@ -1,8 +1,8 @@
-package namegen.generators;
+package nikedemos.markovnames.generators;
 
 import java.util.Random;
 
-import namegen.MarkovDictionary;
+import nikedemos.markovnames.MarkovDictionary;
 
 public class MarkovGenerator {
 

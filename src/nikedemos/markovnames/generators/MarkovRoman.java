@@ -1,8 +1,8 @@
-package namegen.generators;
+package nikedemos.markovnames.generators;
 
 import java.util.Random;
 
-import namegen.MarkovDictionary;
+import nikedemos.markovnames.MarkovDictionary;
 
 public class MarkovRoman extends MarkovGenerator {
 	public MarkovDictionary markov2;
@@ -29,7 +29,7 @@ public class MarkovRoman extends MarkovGenerator {
 		//change "us" into "a" and "o" at the end into "a"
 		//check if the last two characters are "us"
 		String lastTwoChars = element.substring(element.length()-2);
-		String lastChar = element.substring(element.length());
+		String lastChar = element.substring(element.length()-1);
 		
 		if (lastTwoChars.equals("us"))
 		{

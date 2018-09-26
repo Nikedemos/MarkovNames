@@ -1,4 +1,4 @@
-package namegen;
+package nikedemos.markovnames;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -204,7 +204,7 @@ public class MarkovDictionary {
 	String input="";
 	
 	try {
-		input = readFile("src/dictionary/"+dictionaryFile);
+		input = readFile("src/nikedemos/markovnames/dictionary/"+dictionaryFile);
 	} catch (IOException e) {
 		
 		e.printStackTrace();

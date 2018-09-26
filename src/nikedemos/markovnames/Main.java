@@ -1,6 +1,6 @@
-package namegen;
+package nikedemos.markovnames;
 
-import namegen.generators.*;
+import nikedemos.markovnames.generators.*;
 
 public class Main {
 	public static final MarkovRoman ROMAN = new MarkovRoman();

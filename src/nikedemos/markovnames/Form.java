@@ -1,4 +1,4 @@
-package namegen;
+package nikedemos.markovnames;
 
 import javax.swing.*;
 import java.awt.*;
