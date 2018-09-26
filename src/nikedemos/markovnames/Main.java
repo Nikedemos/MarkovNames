@@ -38,16 +38,18 @@ public class Main {
 			
 			System.out.println("==="+pair.getKey()+"===");
 			
-			for (int i=0; i<10; i++)
+			for (int i=0; i<16; i++)
 			{
-			int gender = i<5 ? 1 : 2;
+			if (i==0)
+					System.out.println("GENTLEMEN-----------");
+			int gender = i<8 ? 1 : 2;
 			String random_name = pair.getValue().fetch(gender);
 			System.out.println(random_name);
 			
-			if (i==9) //extra padding
+			if (i==15) //extra padding
 				System.out.println("\n");
-			else if (i==4) //separate genders
-				System.out.println("--------------------");
+			else if (i==7) //separate genders
+				System.out.println("LADIES--------------");
 			}
 		}
 	}

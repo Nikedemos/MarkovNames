@@ -1,4 +1,4 @@
-Bądzsław
+Bądzisław
 Bąsław
 Bdzigost
 Będzieciech
@@ -111,7 +111,6 @@ Bojan
 Budzigniew
 Budzimir
 Budzisław
-Budzsław
 Budziwoj
 Budźwoj
 Budziwój
@@ -263,7 +262,6 @@ Gniewosz
 Godzimir
 Godzisław
 Godosław
-Godzsław
 Gocław
 Gorzysław
 Gorsław
@@ -276,7 +274,6 @@ Gościwid
 Gościwit
 Gościwój
 Grodzisław
-Grodzsław
 Gromisław
 Grzymisław
 Grzymosław
@@ -706,7 +703,7 @@ Strzebor
 Strzedziwoj
 Strzeżymir
 Strzeżysław
-Strzedzsław
+Strzedzisław
 Strzecław
 Strzecław
 Strzesław
