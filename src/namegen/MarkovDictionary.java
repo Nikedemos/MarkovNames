@@ -10,23 +10,31 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-public class Markov {
+public class MarkovDictionary {
 	private Random rng;
-	private int sequenceLen=1;
+	private int sequenceLen=3;
 
 	private HashMap2D<String,String,Integer> occurrences = new HashMap2D<String,String,Integer>();
 	
-	public Markov(Random rng) {
+	public MarkovDictionary(String dictionary, int seqlen, Random rng) {
 	this.rng = rng;
 
-	//applyDictionary("1000mostCommonEnglishWords.txt", 1);
-	applyDictionary("male_names_1991.txt", 2);
-	System.out.println(generateWord());
+	applyDictionary(dictionary, seqlen);
 	}
 	
-	public Markov()
+	public MarkovDictionary(String dictionary, int seqlen)
 	{
-		this(new Random());
+		this(dictionary, seqlen, new Random());
+	}
+	
+	public MarkovDictionary(String dictionary)
+	{
+		this(dictionary, 3, new Random()); //3 is the default, anyway
+	}
+	
+	public MarkovDictionary(String dictionary, Random rng)
+	{
+		this(dictionary, 3, rng); //3 is the default, anyway
 	}
 	
 	public static String readFile(String path) 
@@ -141,10 +149,7 @@ public class Markov {
 	    	//   and count their total occurrences
 	    	int subSize = 0;
 	    	
-	    	int test=occurrences.mMap.get(sequence).size();
-	    	
-	    	System.out.println(test);
-	    	System.out.println(sequence);
+	    	//System.out.println(sequence);
 	    	
 	    	Iterator<?> j = occurrences.mMap.get(sequence).entrySet().iterator();
 	    	
@@ -189,7 +194,8 @@ public class Markov {
     		//System.out.println("CHOSEN: "+chosen);
     		
 	    	}
-	    
+	    //and now remove the square brackets surrounding it.
+	    word = word.substring(1, word.length()-1);
 		return word;
 	}
 	
