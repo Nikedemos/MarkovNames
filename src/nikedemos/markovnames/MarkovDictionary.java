@@ -37,6 +37,10 @@ public class MarkovDictionary {
 		this(dictionary, 3, rng); //3 is the default, anyway
 	}
 	
+	public String getCapitalized(String str) {
+		return str.substring(0, 1).toUpperCase() + str.substring(1);		
+	}
+	
 	public static String readFile(String path) 
 			  throws IOException 
 	{
@@ -196,7 +200,7 @@ public class MarkovDictionary {
 	    	}
 	    //and now remove the square brackets surrounding it.
 	    word = word.substring(1, word.length()-1);
-		return word;
+		return getCapitalized(word);
 	}
 	
 	public void applyDictionary(String dictionaryFile, int seqLen)

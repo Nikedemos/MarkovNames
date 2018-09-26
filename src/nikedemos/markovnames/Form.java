@@ -12,20 +12,16 @@ class Form extends JFrame {
   private static final long serialVersionUID = 4828844368057679043L;
   
   private JButton btnTutup  = new JButton("Tutup");
-  private JButton btnTambah = new JButton("Tambah");
 
   private JTextField txtA = new JTextField();
-  private JTextField txtB = new JTextField();
-  private JTextField txtC = new JTextField();
 
-  private JLabel lblA = new JLabel("A :");
-  private JLabel lblB = new JLabel("B :");
-  private JLabel lblC = new JLabel("C :");
+  private JLabel selectGenerator = new JLabel("Choose generator: ");
 
   public Form(){
-    setTitle("Penjumlahan");
-    setSize(400,200);
-    setLocation(new Point(300,200));
+    setTitle("MarkovNames by Nikedemos 2018");
+    setSize(640,480);
+    setLocationRelativeTo(null);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLayout(null);    
     setResizable(false);
 
@@ -35,69 +31,35 @@ class Form extends JFrame {
 
   private void initComponent(){
     btnTutup.setBounds(300,130, 80,25);
-    btnTambah.setBounds(300,100, 80,25);
-
-    txtA.setBounds(100,10,100,20);
-    txtB.setBounds(100,35,100,20);
-    txtC.setBounds(100,65,100,20);
-
-    lblA.setBounds(20,10,100,20);
-    lblB.setBounds(20,35,100,20);
-    lblC.setBounds(20,65,100,20);
-
-
+    
+    selectGenerator.setBounds(8,8,120,16);
+    
+    txtA.setBounds(128,8,256,18);
     add(btnTutup);
-    add(btnTambah);
-
-    add(lblA);
-    add(lblB);
-    add(lblC);
-
     add(txtA);
-    add(txtB);
-    add(txtC);
+    add(selectGenerator);
   }
 
   private void initEvent(){
-
-    this.addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent e){
-       System.exit(1);
-      }
-    });
-
+	  /*
     btnTutup.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         btnTutupClick(e);
       }
     });
-
-    btnTambah.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        btnTambahClick(e);
-      }
-    });
   }
-  
+
   private void btnTutupClick(ActionEvent evt){
-    System.exit(0);
-  }
-  
-  private void btnTambahClick(ActionEvent evt){
-    Integer x,y,z;
     try{
-      x = Integer.parseInt(txtA.getText());
-      y = Integer.parseInt(txtB.getText());
-      z = x + y;
-      txtC.setText(z.toString());
-
+      txtA.getText();
+      
     }catch(Exception e){
       System.out.println(e);
       JOptionPane.showMessageDialog(null, 
           e.toString(),
           "Error", 
           JOptionPane.ERROR_MESSAGE);
-    }
-  }
+    }*/
+  } 
 }
 

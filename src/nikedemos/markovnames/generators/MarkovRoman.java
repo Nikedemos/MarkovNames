@@ -8,19 +8,24 @@ public class MarkovRoman extends MarkovGenerator {
 	public MarkovDictionary markov2;
 	public MarkovDictionary markov3;
 
-	public MarkovRoman(Random rng)
+	public MarkovRoman(int seqlen, Random rng)
 	{
 		this.rng = rng;
-		this.markov  = new MarkovDictionary("roman_praenomina.txt",rng);
-		this.markov2 = new MarkovDictionary("roman_nomina.txt",rng);
-		this.markov3 = new MarkovDictionary("roman_cognomina.txt",rng);
+		this.markov  = new MarkovDictionary("roman_praenomina.txt",seqlen,rng);
+		this.markov2 = new MarkovDictionary("roman_nomina.txt",seqlen,rng);
+		this.markov3 = new MarkovDictionary("roman_cognomina.txt",seqlen,rng);
+		
+	}
+	
+	public MarkovRoman(int seqlen)
+	{
+		this(seqlen,new Random());
 		
 	}
 	
 	public MarkovRoman()
 	{
-		this(new Random());
-		
+		this(3, new Random());
 	}
 	
 	@Override
@@ -33,7 +38,7 @@ public class MarkovRoman extends MarkovGenerator {
 		
 		if (lastTwoChars.equals("us"))
 		{
-		lastTwoChars="a"; //if it's a cognominum, the ending is in a different grammatical case
+		lastTwoChars="a";
 
 		//delete last two chars from the element
 		
@@ -53,11 +58,6 @@ public class MarkovRoman extends MarkovGenerator {
 	}
 	
 	@Override
-	public String fetch()
-	{
-		return fetch(0); //0 = random gender, 1 = male, 2 = female
-	}
-	
 	public String fetch(int gender)
 	{
 		
