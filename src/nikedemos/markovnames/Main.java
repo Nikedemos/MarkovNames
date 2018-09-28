@@ -16,8 +16,6 @@ public class Main {
 	public static HashMap<String, MarkovGenerator> GENERATORS = new HashMap<String, MarkovGenerator>();
 	
 	public static void main(String[] args){
-		Form mainWindow = new Form();
-		mainWindow.setVisible(true);
 		
 		//all the generators neatly in one HashMap, so you can iterate or w/e
 		
