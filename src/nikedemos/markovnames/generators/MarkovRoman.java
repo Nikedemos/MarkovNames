@@ -54,36 +54,6 @@ public class MarkovRoman extends MarkovGenerator {
 		
 		return element;
 	}
-	@Override
-	public String stylize(String str)
-	{
-	//Okay, so what can we do to make a Roman name fancy?
-	//First, convert to UPPERCASE.
-	//Then, convert all "U" into "V".
-	//Then - replace with Full-Width form.
-	//Full-width forms fit the Roman theme quite nicely in MC!
-		
-	str = str.toUpperCase();
-
-	//str = str.replaceAll("U", "V");
-	
-	//now make it full-width
-	String oldChars = new String("QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789");
-	String newChars = new String("ＱＷＥＲＴＹＵＩＯＰＡＳＤＦＧＨＪＫＬＺＸＣＶＢＮＭｑｗｅｒｔｙｕｉｏｐａｓｄｆｇｈｊｋｌｚｘｃｖｂｎｍ０１２３４５６７８９");
-	
-	//oh btw this looks like quite a useful generic function.
-	//I sure miss being able to just replace arrays of characters with another array of characters
-	//in "vanilla" PHP strings...
-	
-	for (int c=0; c<oldChars.length(); c++)
-	{
-		String oc = oldChars.substring(c, c+1);
-		String nc = newChars.substring(c, c+1);
-		str = str.replaceAll(oc, nc);
-	}
-	
-	return str;
-	}
 	
 	@Override
 	public String fetch(int gender)
@@ -111,6 +81,6 @@ public class MarkovRoman extends MarkovGenerator {
 		seq3 = feminize(seq3, true);
 		}
 		
-		return stylize(new StringBuilder(seq1).append(" ").append(seq2).append(" ").append(seq3).toString());
+		return seq1+" "+seq2+" "+seq3;
 	}
 }

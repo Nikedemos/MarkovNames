@@ -6,6 +6,8 @@ import nikedemos.markovnames.MarkovDictionary;
 
 public class MarkovAztec extends MarkovGenerator {
 
+	public MarkovDictionary markov2;
+
 	public MarkovAztec(int seqlen, Random rng)
 	{
 		this.rng = rng;
