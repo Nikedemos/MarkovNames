@@ -264,6 +264,8 @@ public class MarkovDictionary {
 		BufferedReader readIn = new BufferedReader(new InputStreamReader(getResource(new ResourceLocation(canonical)), "UTF-8"));
 		//Thread.currentThread().getContextClassLoader().getResourceAsStream("path/to/resource/file.ext");
 		
+		
+		
 		for (String line = readIn.readLine(); line != null; line = readIn.readLine())
 		{
 	    input = input.append(line).append(" ");
