@@ -1,6 +1,11 @@
 package nikedemos.markovnames;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,7 +13,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import java.util.Random;
+
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
 
 public class MarkovDictionary {
 	private Random rng;
@@ -19,7 +29,12 @@ public class MarkovDictionary {
 	public MarkovDictionary(String dictionary, int seqlen, Random rng) {
 	this.rng = rng;
 
-	applyDictionary(dictionary, seqlen);
+	try {
+		applyDictionary(dictionary, seqlen);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	}
 	
 	public MarkovDictionary(String dictionary, int seqlen)
@@ -36,6 +51,34 @@ public class MarkovDictionary {
 	{
 		this(dictionary, 3, rng); //3 is the default, anyway
 	}
+	
+	//Blatantly copied from EnderIO: https://github.com/SleepyTrousers/EnderIO/blob/master/enderio-base/src/main/java/crazypants/enderio/base/config/recipes/RecipeFactory.java#L44-L57
+	//Thanks again for your help, Henry Loenwind!
+	
+	private InputStream getResource(ResourceLocation resourceLocation) {
+		    final ModContainer container = Loader.instance().activeModContainer();
+		    if (container != null) {
+		      final String resourcePath = String.format("/%s/%s/%s", "assets", resourceLocation.getResourceDomain(), resourceLocation.getResourcePath());
+		      InputStream resourceAsStream = null;
+		      
+		      try {
+		      resourceAsStream = container.getMod().getClass().getResourceAsStream(resourcePath);
+		      }
+		      catch (Exception e)
+		      {
+		    	  e.printStackTrace();  
+		      }
+		      
+		      
+		      if (resourceAsStream != null) {
+		        return resourceAsStream;
+		      } else {
+		        throw new RuntimeException("Could not find resource " + resourceLocation);
+		      }
+		    } else {
+		      throw new RuntimeException("Failed to find current mod while looking for resource " + resourceLocation);
+		    }
+		}
 	
 	public String getCapitalized(String str) {
 		StringBuilder build = new StringBuilder(str);
@@ -211,18 +254,53 @@ public class MarkovDictionary {
 		return getCapitalized(word.toString());
 	}
 	
-	public void applyDictionary(String dictionaryFile, int seqLen)
+	public void applyDictionary(String dictionaryFile, int seqLen) throws IOException
 	{
-	String input="";
+	StringBuilder input=new StringBuilder();
 	
-	StringBuilder path = new StringBuilder("src/nikedemos/markovnames/dictionary/").append(dictionaryFile);
+		
+		String canonical = new StringBuilder("customnpcs:markovnames/dictionary/").append(dictionaryFile).toString();
+		
+		BufferedReader readIn = new BufferedReader(new InputStreamReader(getResource(new ResourceLocation(canonical)), "UTF-8"));
+		//Thread.currentThread().getContextClassLoader().getResourceAsStream("path/to/resource/file.ext");
+		
+		for (String line = readIn.readLine(); line != null; line = readIn.readLine())
+		{
+	    input = input.append(line).append(" ");
+		}
+		
+		readIn.close();
+		
+	/*
+	String canonical = new StringBuilder(dictionaryFile).toString();
 	
+	/*
+    BufferedInputStream result = (BufferedInputStream) 
+            MarkovDictionary.class.getClassLoader().getResourceAsStream(canonical);
+	
+    byte [] b = new byte[256];
+    int val = 0;
+    
+    do {
+        try {
+            val = result.read(b);
+            if (val > 0) {
+                input.append(new String(b, 0, val));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+    } while (val > -1);
+	
+	//StringBuilder path = new StringBuilder("src/main/java/nikedemos/markovnames/dictionary/").append(dictionaryFile);
+	/*
 	try {
 		input = readFile(path.toString());
 	} catch (IOException e) {
 		
 		e.printStackTrace();
 	}
+	*/
 	//if seqLen != this.sequenceLen, we must clear occurrences
 	
 	if (this.sequenceLen!=seqLen)
@@ -231,12 +309,14 @@ public class MarkovDictionary {
 		this.occurrences.clear();
 		}
 	
-	if (input!="")
+	String input_str=input.toString();
+	
+	if (input_str!="")
 	{
-	input = input.toLowerCase(); //XXXXXXXX
+		input_str = input_str.toLowerCase(); //XXXXXXXX
 	
 	//turn all newline/whitespace characters into inter-word separators
-	input = input.replaceAll("[\\t\\n\\r\\s]+","][");
+		input_str = input_str.replaceAll("[\\t\\n\\r\\s]+","][");
 	
 	//turn all the whitespace characters
 	//into spaces so they can act as terminators
@@ -247,16 +327,16 @@ public class MarkovDictionary {
 	
 	//and add "[" at the beginning and "]" at the end
 	
-	StringBuilder input_brackets = new StringBuilder("[").append(input).append("]");
+	StringBuilder input_brackets = new StringBuilder("[").append(input_str).append("]");
 	
-	input = input_brackets.toString();
+	input_str = input_brackets.toString();
 	
-	int maxCursorPos = input.length()-1-sequenceLen;
+	int maxCursorPos = input_str.length()-1-sequenceLen;
 	
 	for (int i=0; i<=maxCursorPos; i++)
 		{
-		String seqCurr = input.substring(i, i+(sequenceLen)); // i plus 2 characters next to it
-		String seqNext = input.substring(i+sequenceLen,i+sequenceLen+1); //next character after that
+		String seqCurr = input_str.substring(i, i+(sequenceLen)); // i plus 2 characters next to it
+		String seqNext = input_str.substring(i+sequenceLen,i+sequenceLen+1); //next character after that
 		incrementSafe(seqCurr, seqNext);
 		//aux counters
 		
