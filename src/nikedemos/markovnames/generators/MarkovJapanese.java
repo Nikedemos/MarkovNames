@@ -2,6 +2,7 @@ package nikedemos.markovnames.generators;
 
 import java.util.Random;
 
+import net.minecraft.util.text.TextComponentTranslation;
 import nikedemos.markovnames.MarkovDictionary;
 
 public class MarkovJapanese extends MarkovGenerator {
@@ -14,7 +15,6 @@ public class MarkovJapanese extends MarkovGenerator {
 		this.markov  = new MarkovDictionary("japanese_surnames.txt",seqlen,rng);
 		this.markov2 = new MarkovDictionary("japanese_given_male.txt",seqlen,rng);
 		this.markov3 = new MarkovDictionary("japanese_given_female.txt",seqlen,rng);
-		
 	}
 	
 	public MarkovJapanese(int seqlen)

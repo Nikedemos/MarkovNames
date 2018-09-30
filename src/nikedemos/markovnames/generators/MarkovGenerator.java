@@ -2,12 +2,15 @@ package nikedemos.markovnames.generators;
 
 import java.util.Random;
 
+import net.minecraft.util.text.TextComponentTranslation;
 import nikedemos.markovnames.MarkovDictionary;
 
 public class MarkovGenerator {
 
 	public MarkovDictionary markov;
 	public Random rng;
+	public String name;
+	public String symbol;
 	
 	public MarkovGenerator(int seqlen, Random rng)
 	{

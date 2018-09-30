@@ -2,6 +2,7 @@ package nikedemos.markovnames.generators;
 
 import java.util.Random;
 
+import net.minecraft.util.text.TextComponentTranslation;
 import nikedemos.markovnames.MarkovDictionary;
 
 public class MarkovAncientGreek extends MarkovGenerator {
@@ -12,7 +13,7 @@ public class MarkovAncientGreek extends MarkovGenerator {
 	{
 		this.rng = rng;
 		this.markov  = new MarkovDictionary("ancient_greek_male.txt",seqlen,rng);
-		this.markov2  = new MarkovDictionary("ancient_greek_female.txt",seqlen,rng);	
+		this.markov2  = new MarkovDictionary("ancient_greek_female.txt",seqlen,rng);
 	}
 	
 	public MarkovAncientGreek(int seqlen)

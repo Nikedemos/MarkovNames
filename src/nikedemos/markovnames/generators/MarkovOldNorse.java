@@ -2,6 +2,7 @@ package nikedemos.markovnames.generators;
 
 import java.util.Random;
 
+import net.minecraft.util.text.TextComponentTranslation;
 import nikedemos.markovnames.MarkovDictionary;
 
 public class MarkovOldNorse extends MarkovGenerator {
@@ -12,6 +13,7 @@ public class MarkovOldNorse extends MarkovGenerator {
 	{
 		this.rng = rng;
 		this.markov  = new MarkovDictionary("old_norse_bothgenders.txt",seqlen,rng);
+		this.name = new TextComponentTranslation("markov.oldNorse").toString();
 	}
 	
 	public MarkovOldNorse(int seqlen)

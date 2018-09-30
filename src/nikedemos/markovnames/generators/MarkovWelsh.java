@@ -2,6 +2,7 @@ package nikedemos.markovnames.generators;
 
 import java.util.Random;
 
+import net.minecraft.util.text.TextComponentTranslation;
 import nikedemos.markovnames.MarkovDictionary;
 
 public class MarkovWelsh extends MarkovGenerator {
@@ -12,7 +13,7 @@ public class MarkovWelsh extends MarkovGenerator {
 	{
 		this.rng = rng;
 		this.markov  = new MarkovDictionary("welsh_male.txt",seqlen,rng);
-		this.markov2  = new MarkovDictionary("welsh_female.txt",seqlen,rng);	
+		this.markov2  = new MarkovDictionary("welsh_female.txt",seqlen,rng);
 	}
 	
 	public MarkovWelsh(int seqlen)

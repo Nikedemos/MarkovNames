@@ -2,6 +2,7 @@ package nikedemos.markovnames.generators;
 
 import java.util.Random;
 
+import net.minecraft.util.text.TextComponentTranslation;
 import nikedemos.markovnames.MarkovDictionary;
 
 public class MarkovRoman extends MarkovGenerator {
@@ -14,7 +15,6 @@ public class MarkovRoman extends MarkovGenerator {
 		this.markov  = new MarkovDictionary("roman_praenomina.txt",seqlen,rng);
 		this.markov2 = new MarkovDictionary("roman_nomina.txt",seqlen,rng);
 		this.markov3 = new MarkovDictionary("roman_cognomina.txt",seqlen,rng);
-		
 	}
 	
 	public MarkovRoman(int seqlen)
@@ -62,7 +62,7 @@ public class MarkovRoman extends MarkovGenerator {
 	//Then, convert all "U" into "V".
 	//Then - replace with Full-Width form.
 	//Full-width forms fit the Roman theme quite nicely in MC!
-		
+	/*	
 	str = str.toUpperCase();
 
 	//str = str.replaceAll("U", "V");
@@ -81,7 +81,7 @@ public class MarkovRoman extends MarkovGenerator {
 		String nc = newChars.substring(c, c+1);
 		str = str.replaceAll(oc, nc);
 	}
-	
+	*/
 	return str;
 	}
 	
