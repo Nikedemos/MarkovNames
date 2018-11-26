@@ -88,6 +88,7 @@ public class MarkovDictionary {
 		
 		return build.toString();		
 	}
+
 	
 	public static String readFile(String path) 
 			  throws IOException 
@@ -111,7 +112,6 @@ public class MarkovDictionary {
 	
 	public String generateWord()
 	{
-
 		
 		//let's pick the first element, from which further picking shall proceed.
 		//first, we need to know how many top-level sequences (sequenceLen length) strings
@@ -251,7 +251,12 @@ public class MarkovDictionary {
 	    //and now remove the square brackets surrounding it.
 	    word = word.delete(0, 1); //delete first char
 	    word = word.delete(word.length()-1,word.length()); //delete last char
-		return getCapitalized(word.toString());
+		return this.getPost(word.toString());
+	}
+	
+	public String getPost(String str)
+	{
+		return getCapitalized(str);
 	}
 	
 	public void applyDictionary(String dictionaryFile, int seqLen) throws IOException
